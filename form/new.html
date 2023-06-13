@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .calendar {
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 70px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.blank {
+  background-color: #f7f7f7;
+  color: #999;
+}
+
+.current {
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+.current:hover {
+  background-color: #ccc;
+}
+
+button:hover {
+  color: #999;
+}
+
+.event-name {
+  /* display: block; */
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+</style>
+<body>
+    <div class="calendar">
+        <div class="header">
+          <button id="prevMonthBtn">&lt;</button>
+          <h2 id="currentMonth"></h2>
+          <button id="nextMonthBtn">&gt;</button>
+        </div>
+        <div class="days"></div>
+    </div>
+
+
+<script>
+const calendar = document.querySelector(".calendar");
+const currentMonthElement = document.getElementById("currentMonth");
+const prevMonthBtn = document.getElementById("prevMonthBtn");
+const nextMonthBtn = document.getElementById("nextMonthBtn");
+const daysContainer = document.querySelector(".days");
+
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const events = [
+  { startDate: '2023-06-02', endDate: '2023-06-04', name: 'Event 1' },
+  { startDate: '2023-06-06', endDate: '2023-06-08', name: 'Event 2' },
+  { startDate: '2023-06-10', endDate: '2023-06-13', name: 'Event 3' },
+];
+
+function initCalendar() {
+  updateCalendar();
+  
+  prevMonthBtn.addEventListener("click", showPrevMonth);
+  nextMonthBtn.addEventListener("click", showNextMonth);
+}
+
+function updateCalendar() {
+  // Clear the existing days
+  daysContainer.innerHTML = "";
+
+  // Update the current month and year in the header
+  currentMonthElement.textContent = months[currentMonth] + " " + currentYear;
+
+  // Get the number of days in the current month
+  const numDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  // Get the day of the week for the first day of the month
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+
+  // Create blank spaces for the days before the first day of the month
+  for (let i = 0; i < firstDay; i++) {
+    const dayElement = document.createElement("div");
+    dayElement.classList.add("day", "blank");
+    daysContainer.appendChild(dayElement);
+  }
+
+  // Create day elements for each day in the current month
+  for (let day = 1; day <= numDays; day++) {
+    const dayElement = document.createElement("div");
+    dayElement.classList.add("day");
+    dayElement.textContent = day;
+
+    const currentDate = new Date(currentYear, currentMonth, day);
+    const eventsOnDay = getEventsOnDay(currentDate);
+
+    if (eventsOnDay.length > 0) {
+      const eventNameElement = document.createElement("span");
+      eventNameElement.classList.add("event-name");
+      eventNameElement.textContent = eventsOnDay[0].name;
+      dayElement.appendChild(eventNameElement);
+    }
+
+    daysContainer.appendChild(dayElement);
+  }
+}
+
+function getEventsOnDay(date) {
+  return events.filter((event) => {
+    const startDate = new Date(event.startDate);
+    const endDate = new Date(event.endDate);
+    return (
+      date >= startDate &&
+      date <= endDate
+    );
+  });
+}
+
+
+function showPrevMonth() {
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  updateCalendar();
+}
+
+function showNextMonth() {
+  currentMonth++;
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  updateCalendar();
+}
+
+initCalendar();
+
+</script>
+</html>

@@ -2,6 +2,11 @@
 include "../dbconnect.php";
 // include "/connect.php";
 
+    session_start();
+    if (!isset($_SESSION['username']) && !isset($_SESSION['name'])) {
+        header("location:../Login/login.php");
+    }
+
 
 $sql = "Select * from events WHERE id = ". $_GET['id'];
 $result = $conn->query($sql);
@@ -55,13 +60,21 @@ if ($result-> num_rows > 0){
             </div>
             <div id="nav">
                 <ol>
-                    <li>Home</li>
-                    <li>Back</li>
+                    <a href="../Main/main.php">
+                        <li>Home</li>
+                    </a>
+                    <a href="../Main/main.php">
+                        <li>Back</li>
+                    </a>
                 </ol>
             </div>
             <div id="profile">
                 <i class="fa-regular fa-circle-user"></i>
-                <p>Angelene Nadine</p>
+                <p><?php echo $_SESSION['name'];?></p>
+            </div>
+            <div id="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="../Main/logout.php"><p>Logout</p></a>
             </div>
         </div>
         <div class="bulan">

@@ -46,10 +46,12 @@ body {
     display: flex;
     font-size: 13px;
     font-family: 'Pro-Text';
-    font-weight: bolder;
+    font-weight: bold;
+    /* align-items: center; */
     left: 230px;
     top: 23px;
     letter-spacing: 3px;
+    color: rgb(79, 33, 67);
 }
 
 
@@ -58,18 +60,48 @@ body {
     padding-left: 50px;
 }
 
+#nav li:hover{
+    font-size: 14px;
+    color: #450f29;
+}
 #nav ol{
     position: absolute;
     list-style-type: none;
 }
 
+#nav a{
+    color: rgb(79, 33, 67);
+}
+
 #profile{
+    /* background-color: #453c41; */
     border-radius: 20px;
+    /* border: 1.4px solid black; */
+    /* background-color: white; */
     position: absolute;
     float: right;
-    right: 5px;
+    right:125px;
     width: 17%;
     height: 35px;
+    /* padding: 10px 0; */
+    /* background-color: #453c41; */
+    top: 19px;
+    display: inline-flex;
+    font-family: 'Pro-Text';
+}
+
+#logout{
+    /* background-color: #453c41; */
+    border-radius: 20px;
+    /* border: 1.4px solid black; */
+    /* background-color: white; */
+    position: absolute;
+    float: right;
+    right:15px;
+    width: 17%;
+    height: 35px;
+    /* padding: 10px 0; */
+    /* background-color: #453c41; */
     top: 19px;
     display: inline-flex;
     font-family: 'Pro-Text';
@@ -78,18 +110,50 @@ body {
 #profile p{
     font-weight: bolder;
     font-size: 13px;
-    text-align: right;
+    text-align: left;
     position: absolute;
     right: 29px;
     word-spacing: 1px;
     top: -3px;
     letter-spacing: 2px;
+    color: rgb(79, 33, 67);
 }
 
 #profile i{
     position: absolute;
     top: 10px;
     right: 177px;
+    color: rgb(79, 33, 67);
+}
+
+#logout p{
+    font-weight: bolder;
+    font-size: 13px;
+    text-align: right;
+    position: absolute;
+    right: 19px;
+    word-spacing: 1px;
+    top: -3px;
+    letter-spacing: 2px;
+}
+
+#logout i{
+    position: absolute;
+    top: 10px;
+    right: 85px;
+    color: rgb(82, 12, 33);
+}
+
+
+#logout:hover{
+    width: 120px;
+    background-color: #b096e3;
+    color: #6d1d44;
+}
+
+#logout a{
+    color: rgb(82, 12, 33);
+    
 }
 
 #textlft span{
@@ -149,6 +213,24 @@ body {
 
 
 }
+
+.bulan i{
+    color: #360e24;
+}
+
+.bulan .edit:hover{
+    color: #851050;
+    font-size: 21px;
+
+}
+
+.bulan .delete:hover{
+    color: #851050;
+    font-size: 21px;
+
+}
+
+
 
 .bulan #one{
     width: 79.4%;

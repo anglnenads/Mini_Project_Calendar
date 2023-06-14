@@ -2,6 +2,10 @@
     include "conne.php";
     session_start();
     // print_r($_SESSION);
+
+    if (!isset($_SESSION['username']) && !isset($_SESSION['name'])) {
+        header("location:../Login/login.php");
+    }
     
     if (count($_POST) != 0) {
        
@@ -87,7 +91,9 @@
             </div>
             <div id="nav">
                 <ol>
-                    <li>Home</li>
+                    <a href="../Main/main.php">
+                        <li>Home</li>
+                    </a>
                     <a href="../Main/main.php">
                         <li>Back</li>
                     </a>
@@ -96,7 +102,11 @@
             </div>
             <div id="profile">
                 <i class="fa-regular fa-circle-user"></i>
-                <p>Angelene Nadine</p>
+                <p><?php echo $_SESSION['name'];?></p>
+            </div>
+            <div id="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="../Main/logout.php"><p>Logout</p></a>
             </div>
         </div>
         <div class="bulan">

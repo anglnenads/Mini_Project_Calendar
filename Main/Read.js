@@ -137,8 +137,13 @@ function DynamicCalender(){
                         if (todayEvent.length != 0){                
                             for (var event of todayEvent) {
                                 var paragraph = document.createElement("p");
-                                
-                                paragraph.classList.add ("aprilfoolday");
+                                if(event.priority == "High"){
+                                    paragraph.classList.add ("important");
+                                }else if(event.priority == "Medium"){
+                                    paragraph.classList.add ("med");
+                                }else{
+                                    paragraph.classList.add ("low");
+                                }
                                 var link = document.createElement("a");
                                 link.href = "../event/new_detail.php?id="+event.id; // Set the desired URL for the event
                                 link.innerText = event.event_name;

@@ -1,6 +1,42 @@
+//Validation Update and delete
+const deleteButton = document.getElementsByClassName("delete")[0];
+const editButton = document.getElementsByClassName("edit")[0];
+const getNowDate = new Date();
+const getEventNow = document.getElementById("tanggalMulai").innerHTML;
+// href="./delete.php?id=<?php echo $id ?>"
+function Delete(){
+  var eventDate = new Date(getEventNow);
+  if ( getNowDate < eventDate){
+    if(confirm("Are you sure you want to delete this event?")) {
+      console.log("delete.php?id="+id);
+      window.location.href = "delete.php?id="+id;
+      window.location.href = "../Main/main.php";
+    } else {
+      // If the user clicks "No," redirect to the main page
+    }
+  }else{
+    alert("WARNING! The event can't be deleted because it has already passed.");
+  }
+}
+deleteButton.addEventListener("click", Delete);
+
+function Update(){
+  var eventDate = new Date(getEventNow);
+  if ( getNowDate < eventDate){
+    window.location.href = "../form/edit-form.php?id="+id;
+      // window.location.href = "../Main/main.php";
+  }else{
+    alert("WARNING! The event can't be edited because it has already passed.");
+  }
+}
+editButton.addEventListener("click", Update);
+
+
 //Daily To Do List
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
+
+
 
 function addTask(){
     if(inputBox.value === ''){
@@ -114,3 +150,5 @@ var xhr = new XMLHttpRequest();
 
 UpcomingThisWeek();
 nextWeek();
+
+

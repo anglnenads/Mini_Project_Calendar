@@ -128,7 +128,7 @@ function DynamicCalender(){
                         cell.innerText = date;
                         cell.setAttribute('class', 'inMonth');
                         
-                        // MADE BY VR YANG INI
+                        // untuk memberi tanda tanggal pada hari ini
                         if(date == new Date().getDate() && ArrayOfMonth[new Date().getMonth()] == month.innerHTML ) {
                             cell.setAttribute("class", "hariIni");
                         } 
@@ -152,12 +152,6 @@ function DynamicCalender(){
                                 cell.appendChild(paragraph);
                               }
                             } 
-    
-
-                        
-
-
-
                     }
                 } 
                 // memberikan tanggal sebelum bulan yang ditampilkan

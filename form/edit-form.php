@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-include "conne.php";
+
 session_start();
 
 if (count($_POST) != 0) {
@@ -102,7 +102,7 @@ if (count($_POST) != 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mini Project</title>
     <link rel="stylesheet" href="../font/fontawesome-free-6.4.0-web/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="form-edit.js" defer></script>
@@ -120,8 +120,10 @@ if (count($_POST) != 0) {
             </div>
             <div id="nav">
                 <ol>
-                    <li>Home</li>
                     <a href="../Main/main.php">
+                        <li>Home</li>
+                    </a>
+                    <a href="../event/new_detail.php?id=<?php echo $id?>";>
                         <li>Back</li>
                     </a>
                     
@@ -129,7 +131,11 @@ if (count($_POST) != 0) {
             </div>
             <div id="profile">
                 <i class="fa-regular fa-circle-user"></i>
-                <p>Angelene Nadine</p>
+                <p><?php echo $_SESSION['name'];?></p>
+            </div>
+            <div id="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+                <a href="../Main/logout.php"><p>Logout</p></a>
             </div>
         </div>
         <div class="bulan">
@@ -264,6 +270,33 @@ if (count($_POST) != 0) {
             <!-- <button>Submit</button> -->
     </div>
 </main>
+<footer>
+            <div class="fleft">
+                <h4>About Us</h4>
+                <p>71210678 - Setya Kristendy C.</p>
+                <p>71210725 - Angelene Nadine</p>
+                <p>71210784 - Icha Patricia N.</p>
+            </div>
+
+            <div class="fmid">
+                <div class="sub">
+                    <p><span id="capital">C</span><span id="lower">alendar</span></p>
+                </div>
+                <p id="txt">Create your plan with our website</p>
+                <!-- <h4>Calendar</h4> -->
+                <p id="under">&copycopyright 2023</p> 
+            </div>
+
+            <div class="fright">
+                <h4>Contact Us</h4>
+                <p><img src="../image/ig.png"><a href="https://instagram.com/_setya.kc?igshid=YmMyMTA2M2Y=">@_setya.kc</a></p>
+                <p><img src="../image/ig.png"><a href="https://instagram.com/anglne_nadine?igshid=YmMyMTA2M2Y=">@anglne_nadine</a></p>
+                <p><img src="../image/ig.png"><a href="https://instagram.com/ichapatricia63?igshid=YmMyMTA2M2Y=">@ichapatricia63</a></p>
+            </div>
+    </footer>
+
+
+
 </body>
 </head>
 </html>

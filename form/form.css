@@ -310,7 +310,7 @@ header{
     margin-top: 30px;
     width: 40%;
     height: 910px;
-    background-color: #cebfd9;
+    background-color: rgb(188,166,183);
     border-radius: 20px;
     border: 1.5px solid rgb(84, 23, 61);
 }
@@ -876,5 +876,123 @@ input[type="file"] {
 }
 
 #nav a{
-    color: rgb(128, 64, 113);
+    color: rgb(79, 33, 67);
+}
+
+/*Footer*/
+
+footer{
+    color: rgb(112,107,135);
+    margin-top: 50px;
+    padding: 5px;
+    text-align: center;
+    height: 150px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.fleft{
+    bottom: 10px;
+    position: relative;
+    float: left;
+    left: 150px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.fleft h4{
+    text-align: center;
+    letter-spacing: 3px;
+    font-size: 18px;
+    background: linear-gradient(to right,rgb(26,24,36) ,rgb(113,52,99),rgb(95, 52, 113));
+    -webkit-text-fill-color: transparent; 
+    -webkit-background-clip: text;
+}
+
+  
+.fmid{
+    bottom: -25px;
+    position: relative;
+    float: left;
+    left: 340px;
+    color: #401031;
+}
+  
+.fright{
+    position: relative;
+    bottom: 10px;
+    float: right;
+    right: 150px;
+    text-align: left;
+    font-size: 14.5px;
+    text-decoration: none;
+}
+
+.fright a{
+    text-decoration: none;
+    color: inherit;
+}
+.fright a:hover{
+    text-decoration: none;
+    color: rgb(75, 29, 77);
+}
+
+.fright h4{
+    text-align: center;
+    letter-spacing: 3px;
+    font-size: 18px;
+    background: linear-gradient(to right,rgb(26,24,36) ,rgb(113,52,99),rgb(95, 52, 113));
+    -webkit-text-fill-color: transparent; 
+    -webkit-background-clip: text;
+}
+  
+  footer img{
+    float: left;
+    position: relative;
+    margin-right: 10px;
+    height: 20px;
+  }
+  
+#under{
+    position: absolute;
+    width: 150px;
+    top: 85%;
+    float: left;
+    left: 42px;
+    font-size: 12px;
+    color: #453c41;
+    top: 84px;
+  }
+  
+  .name{
+    position: relative;
+    bottom: 50px;
+  }
+
+#capital{
+    font-size: 70px;
+    color :rgb(26,24,36); 
+}
+
+#lower{
+    position: absolute;
+    font-size: 30px;
+    bottom: 43px;
+    font-family: "progweb";
+    letter-spacing: 5px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    letter-spacing: 10px;
+    left: 51px;
+    background: linear-gradient(to right,rgb(26,24,36) ,rgb(113,52,99),rgb(95, 52, 113));
+    -webkit-text-fill-color: transparent; 
+    -webkit-background-clip: text;
+}
+
+#txt{
+    left: -17px;
+    width: 300px;
+    position: absolute;
+    font-size: 12px;
+    bottom: 23px;
+    word-spacing: -1px;
 }

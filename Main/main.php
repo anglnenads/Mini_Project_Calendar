@@ -23,8 +23,6 @@
 <body>
     <header>
         <div class="logo">
-            <!-- <div id="textlft">
-                <span>Kelompok 5</span> -->
             </div>
             <div id="title">
                 <p><span id="capital1">C</span><span id="lowerr">alendar</span></p>
@@ -49,7 +47,6 @@
         <div class="bulan">
                 <div id="one">
                 <i class="fa-solid fa-caret-left fa-2xl" id="left"></i>
-                    <!-- <button id="left"> -->
                         <div class="tanggal">
                         <span id="month">JUNE</span>
                         <span id="year">2023</span>
@@ -62,7 +59,6 @@
                         <i class="fa-solid fa-plus" id="plus"></i>
                         <p>Add Events</p>
                     </a>
-                    <!-- <span id="year">2023</span> -->
                 </div>
 
     
@@ -102,12 +98,6 @@
                 </tr>
             </table>
         </div>
-        <!-- <div class="foot">
-            <p>Priority Range : </p>
-            <p>Not to Important</p>
-            <p>Important</p>
-            <p>Very Important</p>
-        </div> -->
     </main>
     <footer>
             <div class="fleft">
@@ -122,7 +112,6 @@
                     <p><span id="capital">C</span><span id="lower">alendar</span></p>
                 </div>
                 <p id="txt">Create your plan with our website</p>
-                <!-- <h4>Calendar</h4> -->
                 <p id="under">&copycopyright 2023</p> 
             </div>
 

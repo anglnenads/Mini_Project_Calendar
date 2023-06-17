@@ -5,6 +5,7 @@ $servername = "127.0.0.1";
 $username = "root";
 $password = "";
 $database = "calendar";
+session_start();
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
@@ -16,14 +17,14 @@ try {
     $nextTwoWeeks = date("Y-m-d", strtotime("+2 weeks"));
 
     // Kueri untuk mendapatkan acara dalam minggu ini
-    $queryThisWeek = "SELECT * FROM events WHERE start_date >= :tanggalIni AND start_date <= :tanggalDepan";
+    $queryThisWeek = "SELECT * FROM events WHERE start_date >= :tanggalIni AND start_date <= :tanggalDepan and username = '".$_SESSION['username']."'" ;
     $stmtThisWeek = $conn->prepare($queryThisWeek);
     $stmtThisWeek->bindParam(':tanggalIni', $today);
     $stmtThisWeek->bindParam(':tanggalDepan', $nextWeek);
     $stmtThisWeek->execute();
 
     // Kueri untuk mendapatkan acara dalam minggu depan
-    $queryNextWeek = "SELECT * FROM events WHERE start_date > :tanggalDepan AND start_date <= :tanggalMingguDepan";
+    $queryNextWeek = "SELECT * FROM events WHERE start_date > :tanggalDepan AND start_date <= :tanggalMingguDepan and username = '".$_SESSION['username']."'";
     $stmtNextWeek = $conn->prepare($queryNextWeek);
     $stmtNextWeek->bindParam(':tanggalDepan', $nextWeek, PDO::PARAM_STR); // Add PDO::PARAM_STR as the third argument
     $stmtNextWeek->bindParam(':tanggalMingguDepan', $nextTwoWeeks, PDO::PARAM_STR); // Add PDO::PARAM_STR as the third argument

@@ -5,10 +5,8 @@ const ArrayOfMonth = ["JANUARY", "FEBRUARY", "MARCH", "APRIL","MAY","JUNE","JULY
 
 function arrowLeft(){
     // ambil elemen month dan Year
-
     Month =  document.getElementById("month");
     Year =  document.getElementById("year");
-
     if ( month.innerHTML == "JANUARY" ){
         Year.innerHTML = parseInt(Year.innerHTML) - 1;
         Month.innerHTML = ArrayOfMonth[11];
@@ -79,6 +77,9 @@ function DynamicCalender(){
     if (xhr.readyState === 4 && xhr.status === 200) {
         var data = JSON.parse(xhr.responseText);
         JSONEvent = {};
+        NowObject = {};
+        ObjectMove = {};
+        Event = {};
        
         for (var event of data){
             var eventDate = new Date(event.start_date);
@@ -91,13 +92,11 @@ function DynamicCalender(){
               // remove event from the deque
               var eventIndex = data.indexOf(event);
               data.splice(eventIndex, 1);
-              kondisi += 1} else {break;}
+              } else {break;}
             }
           //
         
-        NowObject = {};
-        ObjectMove = {};
-        Event = {};
+       
         for (var event of data) {
             var eventDate = new Date(event.start_date);
             var eventDay = eventDate.getDate();
@@ -121,8 +120,6 @@ function DynamicCalender(){
           }
         console.log(NowObject);
         console.log(ObjectMove);
-  
-
 
         // logika yang dibutuhkan untuk  kalender dinamis
         let day = 0;
@@ -171,6 +168,7 @@ function DynamicCalender(){
                                     var paragraph = document.createElement("p");
                                     if(Event[event].priority == "High"){
                                         paragraph.classList.add ("important");
+                                        
                                     }else if(Event[event].priority == "Medium"){
                                         paragraph.classList.add ("med");
                                     }else{
@@ -178,9 +176,22 @@ function DynamicCalender(){
                                     }
                                     var link = document.createElement("a");
                                     link.href = "../event/new_detail.php?id="+Event[event].id; // Set the desired URL for the event
-                                    link.innerText = Event[event].event_name;
+                                    // hidden word                                    
                                     link.classList.add("eventmonth");
+                                    // add span to link
+                                    var span = document.createElement("span");
+                                    span.innerText = Event[event].event_name;
+                                    span.style.visibility = "hidden";
+                                    link.appendChild(span);
+                                    // hidden display link
+                                    // move to link href
+                                    // add font color
+
+
                                     paragraph.appendChild(link);
+
+                                    // add event on mouseover
+                                  
                                     cell.appendChild(paragraph);
                                     NowObject[event] -= 1;
                                     ObjectMove[event] = 1;
@@ -230,5 +241,18 @@ function DynamicCalender(){
     }
     xhr.send();
 }
-
+function giveBehavior(){
+    var allEvent = document.querySelectorAll(".eventmonth");
+    console.log(allEvent);
+    //add event on mouseover
+    for (var i = 0; i < allEvent.length; i++) {
+        allEvent[i].parentElement.addEventListener("click", function() {
+            allEvent[i].style.visibility = "visible";
+        });
+    }
+    console.log("hello world");
+}
 DynamicCalender();
+giveBehavior();
+//add all event table paragraph
+

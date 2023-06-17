@@ -52,20 +52,6 @@ function getDaysInMonth(year, month) {
     return date.getDate(); // Mengembalikan jumlah hari dalam bulan 
 }
 
-function filterEventsByMonth(events, targetMonth) {
-    return events.filter(function(event) {
-      var eventDate = new Date(event.start_date);
-      var eventMonth = eventDate.getMonth() + 1;
-      return eventMonth === targetMonth;
-    });
-  }
-
-function filterEventsByYear(events, year) {
-    return events.filter(function(event) {
-      return new Date(event.start_date).getFullYear() == year;
-    });
-}
-
 function getEventsByDay(events, day) {
     var filteredEvents = events.filter(function(event) {
       var eventDay = new Date(event.start_date).getDate();
@@ -88,17 +74,55 @@ function DynamicCalender(){
 
     // fungsi untuk mengambil data dari  json PHP
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "json.php?id=5", true);
+    xhr.open("GET", "json.php?year="+Year+"&month="+(NumberofMonth+1), true);
     xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
         var data = JSON.parse(xhr.responseText);
-        console.log(data);
-        // filter data dari tahun
-        data = filterEventsByYear(data, Year);
-        console.log(data);
-        // filter data dari bulan
-        data = filterEventsByMonth(data, NumberofMonth+1);
-        console.log(data);
+        JSONEvent = {};
+       
+        for (var event of data){
+            var eventDate = new Date(event.start_date);
+            var eventDay = eventDate.getDate();
+            var eventMonth = eventDate.getMonth();
+            var tanggalSelesai = new Date(event.end_date);
+            if (eventMonth == (NumberofMonth - 1)) {
+              // masukan nama ke JSON
+              JSONEvent[event['event_name']] = tanggalSelesai.getDate();    
+              // remove event from the deque
+              var eventIndex = data.indexOf(event);
+              data.splice(eventIndex, 1);
+              kondisi += 1} else {break;}
+            }
+          //
+        
+        NowObject = {};
+        ObjectMove = {};
+        Event = {};
+        for (var event of data) {
+            var eventDate = new Date(event.start_date);
+            var eventDay = eventDate.getDate();
+            var eventMonth = eventDate.getMonth();
+            var endDate = new Date(event.end_date);
+            var startDate = new Date(event.start_date);
+            // Calculate the difference in days between the end date and start date
+            var dayDifference = (endDate.getDate() - eventDay);
+            // If the day difference is less than or equal to 0
+            if (dayDifference <= 0) {
+              // Replace the day difference with the total days in the current month minus the start date
+              dayDifference = totalDay - eventDay;
+            }
+            // If the start date is the last day of the month, set the day difference to 0
+            if (startDate.getDate() === totalDay) {
+              dayDifference = 0;
+            }
+            // Add the event name to the NowObject with the day difference
+            NowObject[event.event_name] = dayDifference;
+            ObjectMove[event.event_name] = 0;
+          }
+        console.log(NowObject);
+        console.log(ObjectMove);
+  
+
 
         // logika yang dibutuhkan untuk  kalender dinamis
         let day = 0;
@@ -107,10 +131,15 @@ function DynamicCalender(){
 
         // print looping berapa minggu
         for (let i = 0; i < weeks+1; i++){
+            if (Object.keys(JSONEvent).length === 0){
+                kondisi = 0 + Object.keys(ObjectMove).length;
+              }
             // jika minggu kelima tidak ada harinya maka keluar loop
             if (date == totalDay){
                 break; 
             }
+            let first = true;
+            let second = true;
             //namun jika masih ada buat kolom hari
             const row = document.createElement("tr");
             for (let j = 0; j < 7; j++) {
@@ -122,11 +151,13 @@ function DynamicCalender(){
                         nextMonth +=1;
                         cell.setAttribute('class', 'after-before');
                     } 
-                    // memberikan tanggal pada bulan yang ditampilkan
+                    // memmberikan tanggal pada bulan yang ditampilkan
                     else {
                         date += 1;
                         cell.innerText = date;
                         cell.setAttribute('class', 'inMonth');
+
+
                         
                         // untuk memberi tanda tanggal pada hari ini
                         if(date == new Date().getDate() && ArrayOfMonth[new Date().getMonth()] == month.innerHTML ) {
@@ -134,6 +165,30 @@ function DynamicCalender(){
                         } 
 
                         var todayEvent = getEventsByDay(data, date);
+                        if (NowObject.length != 0){
+                            for (var event in NowObject) {
+                                if (NowObject[event] >= 0 && ObjectMove[event] == 1){
+                                    var paragraph = document.createElement("p");
+                                    if(Event[event].priority == "High"){
+                                        paragraph.classList.add ("important");
+                                    }else if(Event[event].priority == "Medium"){
+                                        paragraph.classList.add ("med");
+                                    }else{
+                                        paragraph.classList.add ("low");
+                                    }
+                                    var link = document.createElement("a");
+                                    link.href = "../event/new_detail.php?id="+Event[event].id; // Set the desired URL for the event
+                                    link.innerText = Event[event].event_name;
+                                    link.classList.add("eventmonth");
+                                    paragraph.appendChild(link);
+                                    cell.appendChild(paragraph);
+                                    NowObject[event] -= 1;
+                                    ObjectMove[event] = 1;
+                                  }
+                                }
+                        }
+
+                      
                         if (todayEvent.length != 0){                
                             for (var event of todayEvent) {
                                 var paragraph = document.createElement("p");
@@ -150,6 +205,9 @@ function DynamicCalender(){
                                 link.classList.add("eventmonth");
                                 paragraph.appendChild(link);
                                 cell.appendChild(paragraph);
+                                NowObject[event.event_name] -= 1;
+                                ObjectMove[event.event_name] = 1;
+                                Event[event.event_name] = event;
                               }
                             } 
                     }
@@ -164,6 +222,9 @@ function DynamicCalender(){
                 row.appendChild(cell);
             }
             calender.appendChild(row);
+            console.log(ObjectMove);
+            console.log(Event);
+           
             }
         }
     }

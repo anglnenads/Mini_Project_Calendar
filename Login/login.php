@@ -6,6 +6,8 @@
     $password = "";
     $database = "calendar";
     $conn = mysqli_connect($servername, $username, $password, $database);
+    setcookie('username', 0);
+    setcookie('password', 0);
 
     if (isset($_SESSION['username'])) {
         header("location:../Main/main.php");
@@ -19,6 +21,8 @@
         if ($row = mysqli_fetch_assoc($result)) {
             $_SESSION['username'] = $row['username'];
             $_SESSION['name'] = $row['name'];
+            setcookie('username', $username, time() + (86400 * 30));
+            setcookie('password', $password, time() + (86400 * 30));
             header("location:../Main/main.php");
         }
         else { 
@@ -53,8 +57,8 @@
         <form action="login.php" method="post">
      	    <h2>Login</h2>
 
-     	    <input type="text" name="username" placeholder="Username"><br>
-     	    <input type="password" name="password" placeholder="Password"><br>
+            <input type="text" name="username" placeholder="Username" value="<?php if($_COOKIE['username'] != 0) { echo $_COOKIE['username']; }  ?>"><br>
+     	    <input type="password" name="password" placeholder="Password" value="<?php if($_COOKIE['password'] != 0) { echo $_COOKIE['password'];} ?>"><br>
 
              <?php if (isset($_GET['error'])) { ?>
      		<p class="error"><?php echo $_GET['error']; ?></p>

@@ -82,7 +82,7 @@ if (count($_POST) != 0) {
     $insert = mysqli_query($conn, $query);
 
     if ($insert) {
-        echo '<script>alert("Successfully update event!"); window.location.href="../Main/main.php";</script>';
+        echo '<script>alert("Successfully update event!"); window.location.href="../event/new_detail.php?id='.$_GET['id'].'";</script>';
 
     } else {
         echo 'Error: '.mysqli_error($conn);

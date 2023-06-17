@@ -10,7 +10,7 @@ function Delete(){
     if(confirm("Are you sure you want to delete this event?")) {
       console.log("delete.php?id="+id);
       window.location.href = "delete.php?id="+id;
-      window.location.href = "../Main/main.php";
+      //window.location.href = "../Main/main.php";
     } else {
       // If the user clicks "No," redirect to the main page
     }

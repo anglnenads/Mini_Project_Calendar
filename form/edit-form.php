@@ -52,14 +52,27 @@ if (count($_POST) != 0) {
 
     $uploadfile = "";
 
-    if (isset($_FILES["upload"]["name"]) && $_FILES["upload"]["name"] !== "") {
-        $tmp = $_FILES["upload"]["tmp_name"];
-        $uploadfile = "upload/".$_FILES["upload"]["name"];
-
-        if (!move_uploaded_file($tmp, $uploadfile)) {
-            echo "<br>Status: Gagal upload";
-        }
+    print_r($_FILES);
+    // hitung files
+    $countfiles = count($_FILES);
+    // jika file lebih dari 0
+    if ($countfiles == 1) {
+        // retrieve file information
+        $filename = $_FILES['upload']['name'];
+        $filetmpname = $_FILES['upload']['tmp_name'];
+        $folder = './upload/';
+        $uploadfile = $folder . $filename;
+        echo $uploadfile;
+        // check for errors during file upload
+        if ($_FILES['upload']['error'] === UPLOAD_ERR_OK) {
+            if (move_uploaded_file($filetmpname, $uploadfile)) {
+                echo "File is valid and was successfully uploaded.\n";
+            } else {
+                echo "Upload failed";
+            }
+        } 
     }
+
 
     $query = "UPDATE events 
         SET event_name = '$nama', 
